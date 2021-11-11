@@ -33,3 +33,14 @@ function visitWithDevice(baseUrl, device) {
   cy.visit(baseUrl)
 }
 Cypress.Commands.add('visitWithDevice', visitWithDevice)
+
+function addTeamMember(teamMemberId) {
+  cy.get(teamMemberId).click({ force: true })
+
+  cy.on('window:confirm', (str) => {
+    return true
+  })
+  cy.get(':nth-child(5) > .MuiButtonBase-root > .MuiButton-label').click()
+  cy.wait(12000)
+}
+Cypress.Commands.add('addTeamMember', addTeamMember)

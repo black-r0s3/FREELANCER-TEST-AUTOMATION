@@ -1,10 +1,10 @@
-import { freelancerLogins } from '../../../fixtures/001-login'
+import { clientLogins } from '../../../fixtures/001-login'
 import { baseUrl } from '../../../fixtures/environment'
 import { defaultDevices } from '../../_helpers/default-devices'
 
 defaultDevices.forEach((device) => {
   const [w, h] = device.viewport
-  describe(` Freelancer login - ${device.name}`, () => {
+  describe(` Client view applicants - ${device.name}`, () => {
     before(() => {
       cy.visitWithDevice(baseUrl, device)
     })
@@ -20,14 +20,16 @@ defaultDevices.forEach((device) => {
       cy.contains('Login').first().click({ force: true })
       cy.get('#email')
         .click()
-        .type(freelancerLogins.email)
+        .type(clientLogins.email)
         .get('#password')
-        .type(freelancerLogins.password)
+        .type(clientLogins.password)
       cy.get('.text-center.mt-3').click()
     })
-    it('should check whether the user has logged in successfully', () => {
-      cy.wait(500)
-      cy.url().should('include', '/freelancer')
+
+    it(' Should go to view applicants', () => {
+      cy.get(':nth-child(3) > .MuiTab-wrapper').click({ force: true })
+      cy.wait(1000)
+      cy.url().should('include', '/applicants')
     })
   })
 })
