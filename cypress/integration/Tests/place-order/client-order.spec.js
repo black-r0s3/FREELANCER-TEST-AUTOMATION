@@ -1,6 +1,7 @@
 import { clientLogins } from '../../../fixtures/001-login'
 import { baseUrl } from '../../../fixtures/environment'
 import { defaultDevices } from '../../_helpers/default-devices'
+import {clientOrderDetails} from '../../../fixtures/client-order-details'
 
 defaultDevices.forEach((device) => {
   const [w, h] = device.viewport
@@ -23,27 +24,25 @@ defaultDevices.forEach((device) => {
         .type(clientLogins.email)
         .get('#password')
         .type(clientLogins.password)
-      cy.get('.text-center.mt-3').click()
+      cy.get('.text-center.mt-3 > .MuiButtonBase-root').click()
     })
 
-    it('should go to candidate pool and add team members', () => {
+    it(' Add team members and place order', () => {
       cy.get('.MuiTabs-flexContainer > :nth-child(1)').click({ force: true })
 
-      cy.addTeamMember(
-        ':nth-child(2) > .MuiPaper-root > .justify-content-between > .col-md-4 > .cPoolATTbtn',
-      )
-      cy.addTeamMember(
-        ':nth-child(4) > .MuiPaper-root > .justify-content-between > .col-md-4 > .cPoolATTbtn',
-      )
-      cy.addTeamMember(
-        ':nth-child(3) > .MuiPaper-root > .justify-content-between > .col-md-4 > .cPoolATTbtn',
-      )
+      cy.addTeamMember(':nth-child(11) > .col-md-3 > .MuiButtonBase-root')
+      cy.addTeamMember(':nth-child(7) > .col-md-3 > .MuiButtonBase-root')
+      cy.addTeamMember(':nth-child(19) > .col-md-3 > .MuiButtonBase-root')
+      cy.get('.navBarBtn > :nth-child(3)').click({ force: true }).wait(2000)
+      cy.get('#search')
+        .click({ force: true })
+        .type(clientOrderDetails.teamName)
+        .get('.col-md-2 > .MuiButtonBase-root')
+        .click({ force: true })
+      cy.window()
+        .scrollTo('bottom')
+        .get('.MuiDialogContent-root > :nth-child(1) > .mb-5 > .MuiButtonBase-root')
+        .click({ force: true })
     })
-
-//     it('should go to team and place an order', () => {
-//       cy.get('.navBarBtn').children().eq(2).click({ force: true })
-//       cy.wait(15000)
-//       // cy.get("#search").click({force : true})
-//     })
-   })
- })
+  })
+})

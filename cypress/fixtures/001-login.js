@@ -1,7 +1,7 @@
 export default {
   freelancerLogins: {
-    email: 'gabawef962@specialistblog.com',
-    password: 'Alluvial1!',
+    email: 'pedod15932@ingfix.com',
+    password: 'qwerty@123',
   },
   clientLogins: {
     email: 'dadawa7308@datakop.com',
@@ -12,7 +12,7 @@ export default {
     password: 'connectfreelance',
   },
   recruiterLogins: {
-    email: 'haknigespe@yevme.com',
+    email: 'kayicim994@datakop.com',
     password: 'qwerty@123',
   },
 }
